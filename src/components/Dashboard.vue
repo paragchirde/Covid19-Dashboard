@@ -69,25 +69,25 @@
                 <p>Last Updated: {{ stateData.lastupdatedtime }}</p>
                 </div>
                 <div class="flex content-start flex-wrap">
-                    <div class="w-1/4 p-2">
+                    <div class="sm:w-1/6 md:w-1/4  p-2">
                         <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
                         <p class="font-bold text-xl bg-blue-400 inline-block px-2 text-white rounded">{{stateData.confirmed}}</p>
                         <p>Confirmed cases</p>
                         </div>
                     </div>
-                    <div class="w-1/4 p-2">
+                    <div class="sm:w-1/6 md:w-1/4 p-2">
                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                         <p class="font-bold text-xl bg-orange-400 inline-block px-2 text-white rounded">{{stateData.active}}</p>
                         <p>Active cases</p>
                         </div>
                     </div>
-                    <div class="w-1/4 p-2">
+                    <div class="sm:w-1/6 md:w-1/4 p-2">
                         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
                         <p class="font-bold text-xl bg-green-400 inline-block px-2 text-white rounded">{{stateData.recovered}}</p>
                         <p>Recovered cases</p>
                         </div>
                     </div>
-                    <div class="w-1/4 p-2">
+                    <div class="sm:w-1/6 md:w-1/4 p-2">
                         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
                         <p class="font-bold text-xl bg-red-400 inline-block px-2 text-white rounded">{{stateData.deaths}}</p>
                         <p >Deceased cases</p>
@@ -102,7 +102,7 @@
                     <p>Data from few cities is unclear</p>
                 </div>
                 <div class="flex content-start flex-wrap">
-                    <div class="w-1/5 p-2" v-for="(city, index) in stateDistrictData" :key="index">
+                    <div class="sm:w-1/3 md:w-1/5 w-1/3 p-2" v-for="(city, index) in stateDistrictData" :key="index">
                         <div class="bg-gray-100 border-t-4 border-gray-500 text-gray-700 p-2 shadow rounded" role="alert">
                         <p class="font-bold text-base text-base bg-gray-800 inline-block px-2 text-white rounded">{{city.confirmed}}</p>
                         <p class="font-light text-sm mt-1">{{city.city}}</p>
