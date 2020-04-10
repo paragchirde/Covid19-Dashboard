@@ -55,7 +55,7 @@
                 </div>
                 <div class="bg-indigo-500 py-4 lg:px-4 border-l-8 border-indigo-700 mx-4 mt-6">
                   <div class="text-indigo-100 leading-none" role="alert">
-                    <p class="font-semibold mr-2 text-left flex-auto">Stay Home, Stay Safe</p>
+                    <p class="font-semibold mr-2 text-left flex-auto">#Stay Home, Stay Safe</p>
                     <p class="mt-2 text-white text-xs">
                             Cooperate with the Doctors, Policemen & Governmant
                     </p>
