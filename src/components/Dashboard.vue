@@ -156,10 +156,9 @@ export default {
         axios.get('http://localhost:3001/hits')
         .then(res => {
             this.usersAllData = res.data
-            console.log("All Users Data Main ",this.usersAllData)
+            // console.log("All Users Data Main ",this.usersAllData)
         })
         .then(() => {
-            console.log("Getting IP ")
             this.getIp()
         })
 
@@ -190,43 +189,43 @@ export default {
     },
     methods:{
         getIp(){
-            console.log("Inside GetIP")
+            // console.log("Inside GetIP")
             axios.get("https://api.ipify.org?format=json")
             .then(res => {
                 this.ip = JSON.stringify(res.data.ip, null,2)
                 const ip2  = this.ip.substring(1, this.ip.length-1)
-                console.log("Got IP ", ip2)
-                console.log("Getting IP Info...")
+                // console.log("Got IP ", ip2)
+                // console.log("Getting IP Info...")
                 this.getIpInfo(ip2)
             })
         },
         getIpInfo(uip){
-            console.log("Inside Getting Info")
+            // console.log("Inside Getting Info")
             axios.get(`https://ipinfo.io/${uip}/json?token=36e70d700814d8`)
             .then(res => {
                 this.userInfo = res.data
-                console.log("Got User current info ",this.userInfo)
+                // console.log("Got User current info ",this.userInfo)
                 // this.addData(this.userInfo)
                 //this.IpStoreInit(ip2, this.userInfo)
             })
             .then(() => {
-                console.log("Checking entry...")
+                // console.log("Checking entry...")
                 this.checkEntry(uip, this.userInfo)
                 if(this.ipExists){
-                    console.log("Trigger Increment")
+                    // console.log("Trigger Increment")
                     this.increaseCounter(uip, this.userInfo)
                 } else {
-                    console.log("Trigger Add Method")
+                    // console.log("Trigger Add Method")
                     this.addData(this.userInfo)
                 }
             })
         },
         checkEntry(uip){ 
-            console.log("Inside Checking Entey")
-            console.log("Whats the All User data now?",this.usersAllData)  
+            // console.log("Inside Checking Entey")
+            // console.log("Whats the All User data now?",this.usersAllData)  
             for(var i=0;i<this.usersAllData.length;i++){
                 if(this.usersAllData[i]["ip"] == uip){
-                    console.log("Found ID", this.usersAllData[i]["ip"] )
+                    // console.log("Found ID", this.usersAllData[i]["ip"] )
                     this.ipExists = true
                 } else {
                     this.ipExists = false
@@ -235,7 +234,7 @@ export default {
             console.log(this.ipExists)
         },
         addData(data){
-            console.log("Inside Add Method")
+            // console.log("Inside Add Method")
             axios.post('http://localhost:3001/hits', {
                 ip: data.ip,
                 city: data.city,
@@ -247,21 +246,17 @@ export default {
                 first_visited: moment().format('MMMM Do YYYY, h:mm:ss a'),
                 last_visited: moment().format('MMMM Do YYYY, h:mm:ss a')
             })
-            .then((res) => {
-                console.log('Added New User')
-                console.log(res.data)
+            .then(() => {
+                console.log('ok')
             })
             .catch(err => {
                 console.log(err)
             })
         },
-        increaseCounter(uip, data){
-            console.log("Inside Increment Method",data.ip)
+        increaseCounter(uip){
             var id = this.getIdByIp(uip)
             var count = this.getCountByIp(uip)
             count += 1
-            console.log("ID",id)
-            console.log("Count",count)
             axios.patch(`http://localhost:3001/hits/${id}`, {
                 // ip: data.ip,
                 // city: data.city,
@@ -273,7 +268,7 @@ export default {
                 // first_visited: data.first_visited,
                 last_visited: moment().format('MMMM Do YYYY, h:mm:ss a')
             }).then(() => {
-                console.log('ok Done! Counter++')
+                // console.log('ok Done! Counter++')
             })
         },
         getIdByIp(uip){
