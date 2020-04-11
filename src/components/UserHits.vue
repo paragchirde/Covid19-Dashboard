@@ -56,7 +56,7 @@ export default {
         }
     },
     created(){
-        axios.get('http://localhost:3001/hits')
+        axios.get('https://json-server-rest.herokuapp.com/hits')
         .then(res => {
             console.log(res.data)
             this.hits = res.data

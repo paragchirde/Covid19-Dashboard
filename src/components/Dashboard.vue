@@ -153,7 +153,7 @@ export default {
     created(){
 
         //users
-        axios.get('http://localhost:3001/hits')
+        axios.get('https://json-server-rest.herokuapp.com/hits')
         .then(res => {
             this.usersAllData = res.data
             // console.log("All Users Data Main ",this.usersAllData)
@@ -204,9 +204,6 @@ export default {
             axios.get(`https://ipinfo.io/${uip}/json?token=36e70d700814d8`)
             .then(res => {
                 this.userInfo = res.data
-                // console.log("Got User current info ",this.userInfo)
-                // this.addData(this.userInfo)
-                //this.IpStoreInit(ip2, this.userInfo)
             })
             .then(() => {
                 // console.log("Checking entry...")
@@ -235,7 +232,7 @@ export default {
         },
         addData(data){
             // console.log("Inside Add Method")
-            axios.post('http://localhost:3001/hits', {
+            axios.post('https://json-server-rest.herokuapp.com/hits', {
                 ip: data.ip,
                 city: data.city,
                 region: data.region,
@@ -257,7 +254,7 @@ export default {
             var id = this.getIdByIp(uip)
             var count = this.getCountByIp(uip)
             count += 1
-            axios.patch(`http://localhost:3001/hits/${id}`, {
+            axios.patch(`https://json-server-rest.herokuapp.com/hits/${id}`, {
                 // ip: data.ip,
                 // city: data.city,
                 // region: data.region,
