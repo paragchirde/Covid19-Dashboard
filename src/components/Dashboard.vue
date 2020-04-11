@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex flex-wrap h-screen">
+        <div class="flex flex-wrap h-screen mb-6">
             <!--  -->
             <div class="w-full md:w-1/3 bg-light p-6">
                 <div class="mx-4">
@@ -57,8 +57,16 @@
                   <div class="text-indigo-100 leading-none" role="alert">
                     <p class="font-semibold mr-2 text-left flex-auto">#Stay Home, Stay Safe</p>
                     <p class="mt-2 text-white text-xs">
-                            Cooperate with the Doctors, Policemen & Governmant
+                            Cooperate with the Doctors, Policemen & Government
                     </p>
+                  </div>
+                </div>
+                <div class="bg-green-500 py-4 lg:px-4 border-l-8 border-green-700 mx-4 mt-6">
+                  <div class="text-green-100 leading-none" role="alert">
+                    <p class="mt-2 text-white text-xs">
+                        For More guidelines visit
+                    </p>
+                    <p class="font-semibold mr-2 mt-1 text-left flex-auto"> <a href="https://www.mohfw.gov.in/">Ministry of Health and Family Affairs</a></p>
                   </div>
                 </div>
             </div>
@@ -109,8 +117,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- {{stateDistrictData2}} -->
-                <!-- {{ stateDistrictData}} -->
+                <div class="w-full bg-gray-200 h-1 mt-4 mb-4"></div>
+                <div class="flost-right bg-indigo-100 mt-8 mb-8 inline-block">
+                    <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSc_2y5N0I67wDU38DjDh35IZSIS30rQf7_NYZhtYYGU1jJYT6_kDx4YpF-qw0LSlGsBYP8pqM_a1Pd/pubhtml#" target="blank"><div class="flex items-center bg-green-100 text-gray-600 text-sm font-light  px-4 py-3" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="mr-2"><path fill="#68d391" d="M1 3.488c0-1.926 4.656-3.488 10-3.488 5.345 0 10 1.562 10 3.488s-4.655 3.487-10 3.487c-5.344 0-10-1.561-10-3.487zm10 14.823c.34 0 .678-.007 1.011-.019.045-1.407.537-2.7 1.342-3.745-.839.067-1.643.1-2.353.1-3.006 0-7.588-.523-10-2.256v2.434c0 1.925 4.656 3.486 10 3.486zm0-5.665c5.345 0 10-1.562 10-3.487v-2.44c-2.418 1.738-7.005 2.256-10 2.256-3.006 0-7.588-.523-10-2.256v2.44c0 1.926 4.656 3.487 10 3.487zm1.254 7.635c-.438.02-.861.03-1.254.03-2.995 0-7.582-.518-10-2.256v2.458c0 1.925 4.656 3.487 10 3.487 1.284 0 2.526-.092 3.676-.256-1.155-.844-2.02-2.055-2.422-3.463zm6.246-6.281c-2.483 0-4.5 2.015-4.5 4.5s2.017 4.5 4.5 4.5 4.5-2.015 4.5-4.5-2.017-4.5-4.5-4.5zm-.563 6.55l-1.84-1.778.736-.758 1.089 1.05 2.43-2.439.751.744-3.166 3.181z"/></svg>
+                    <p>Crowdsourced Patient Database</p>
+                    </div></a>
+                </div>
             </div>
         </div>
     </div>
@@ -131,9 +144,25 @@ export default {
             stateData: '',
             stateDistrictData: '',
             stateDistrictData2: [],
+            ip: '',
+            userInfo: [],
+            usersAllData: [],
+            ipExists: false
         }
     },
     created(){
+
+        //users
+        axios.get('http://localhost:3001/hits')
+        .then(res => {
+            this.usersAllData = res.data
+            console.log("All Users Data Main ",this.usersAllData)
+        })
+        .then(() => {
+            console.log("Getting IP ")
+            this.getIp()
+        })
+
         instance.get('https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=India')
         .then(res => {
             this.coviddata = res.data.data.covid19Stats
@@ -143,18 +172,126 @@ export default {
         .then(res => {
             this.indiaData = res.data.statewise[0]
             this.stateData = res.data.statewise[1]
+            // console.log(res)
         })
 
         axios.get('https://api.covid19india.org/state_district_wise.json')
         .then(res => {
+            // console.log(res)
             this.stateDistrictData = res.data.Maharashtra.districtData
-            console.log(this.stateDistrictData)
-            console.log(Object.keys(this.stateDistrictData))
+            // console.log(this.stateDistrictData)
+            // console.log(Object.keys(this.stateDistrictData))
             Object.keys(this.stateDistrictData).forEach((key) => {
-                console.log(this.stateDistrictData[key].city = key)
-                this.stateDistrictData2.push(this.stateDistrictData)
+                this.stateDistrictData[key].city = key
+                // this.stateDistrictData2.push(this.stateDistrictData)
             })
+            // console.log(this.stateDistrictData)
         })
+    },
+    methods:{
+        getIp(){
+            console.log("Inside GetIP")
+            axios.get("https://api.ipify.org?format=json")
+            .then(res => {
+                this.ip = JSON.stringify(res.data.ip, null,2)
+                const ip2  = this.ip.substring(1, this.ip.length-1)
+                console.log("Got IP ", ip2)
+                console.log("Getting IP Info...")
+                this.getIpInfo(ip2)
+            })
+        },
+        getIpInfo(uip){
+            console.log("Inside Getting Info")
+            axios.get(`https://ipinfo.io/${uip}/json?token=36e70d700814d8`)
+            .then(res => {
+                this.userInfo = res.data
+                console.log("Got User current info ",this.userInfo)
+                // this.addData(this.userInfo)
+                //this.IpStoreInit(ip2, this.userInfo)
+            })
+            .then(() => {
+                console.log("Checking entry...")
+                this.checkEntry(uip, this.userInfo)
+                if(this.ipExists){
+                    console.log("Trigger Increment")
+                    this.increaseCounter(uip, this.userInfo)
+                } else {
+                    console.log("Trigger Add Method")
+                    this.addData(this.userInfo)
+                }
+            })
+        },
+        checkEntry(uip){ 
+            console.log("Inside Checking Entey")
+            console.log("Whats the All User data now?",this.usersAllData)  
+            for(var i=0;i<this.usersAllData.length;i++){
+                if(this.usersAllData[i]["ip"] == uip){
+                    console.log("Found ID", this.usersAllData[i]["ip"] )
+                    this.ipExists = true
+                } else {
+                    this.ipExists = false
+                }
+            }
+            console.log(this.ipExists)
+        },
+        addData(data){
+            console.log("Inside Add Method")
+            axios.post('http://localhost:3001/hits', {
+                ip: data.ip,
+                city: data.city,
+                region: data.region,
+                country: data.country,
+                latLng: data.loc,
+                org: data.org,
+                count: 0,
+                first_visited: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                last_visited: moment().format('MMMM Do YYYY, h:mm:ss a')
+            })
+            .then((res) => {
+                console.log('Added New User')
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        increaseCounter(uip, data){
+            console.log("Inside Increment Method",data.ip)
+            var id = this.getIdByIp(uip)
+            var count = this.getCountByIp(uip)
+            count += 1
+            console.log("ID",id)
+            console.log("Count",count)
+            axios.patch(`http://localhost:3001/hits/${id}`, {
+                // ip: data.ip,
+                // city: data.city,
+                // region: data.region,
+                // country: data.country,
+                // latLng: data.loc,
+                // org: data.org,
+                count: count,
+                // first_visited: data.first_visited,
+                last_visited: moment().format('MMMM Do YYYY, h:mm:ss a')
+            }).then(() => {
+                console.log('ok Done! Counter++')
+            })
+        },
+        getIdByIp(uip){
+            for(var i=0;i<this.usersAllData.length;i++){
+                if(this.usersAllData[i]["ip"] == uip){
+                    // console.log("Found!", uip, this.usersAllData[i]["id"])
+                    return this.usersAllData[i]["id"]
+                }
+            }
+        },
+        getCountByIp(uip){
+            for(var i=0;i<this.usersAllData.length;i++){
+                if(this.usersAllData[i]["ip"] == uip){
+                    // console.log("Found!", uip, this.usersAllData[i]["id"])
+                    return this.usersAllData[i]["count"]
+                }
+            }
+        }
     }
 }
 </script>

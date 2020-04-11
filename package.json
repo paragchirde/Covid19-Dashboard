@@ -6,19 +6,23 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
-        "start": "node server.js"
+        "start": "node server.js",
+        "start:json": "json-server --watch db.json -p 3001"
     },
     "dependencies": {
         "autoprefixer": "^9.7.6",
         "axios": "^0.19.2",
+        "connect-history-api-fallback": "^1.6.0",
         "core-js": "^3.6.4",
         "express": "^4.17.1",
+        "express-ip": "^1.0.4",
         "moment": "^2.24.0",
         "postcss-cli": "^7.1.0",
         "serve-static": "^1.14.1",
         "server-static": "^2.0.5",
         "tailwindcss": "^1.2.0",
-        "vue": "^2.6.11"
+        "vue": "^2.6.11",
+        "vue-router": "^3.1.6"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^4.3.0",
