@@ -134,6 +134,10 @@ const instance = axios.create({
     headers: {'x-rapidapi-host': 'covid-19-coronavirus-statistics.p.rapidapi.com', 'x-rapidapi-key' : 'd4632f0efdmshb9e1d1fe4621607p14324djsn1514c88ee0ad'} //don't forget to change API key to your exact key
 })
 var moment = require('moment');
+
+const faunadb = require('faunadb')
+const client = new faunadb.Client({secret: process.env.VUE_APP_FAUNA_DB_SECRET})
+const q = faunadb.query
 export default {
     data(){
         return {
@@ -147,16 +151,31 @@ export default {
             ip: '',
             userInfo: [],
             usersAllData: [],
-            ipExists: false
+            ipExists: false,
+            ipStatus: '',
+            fHits: []
         }
     },
     created(){
 
         //users
-        axios.get('https://json-server-rest.herokuapp.com/hits')
+        // axios.get('https://json-server-rest.herokuapp.com/hits')
+        // .then(res => {
+        //     this.usersAllData = res.data
+        // })
+        // .then(() => {
+        //     this.getIp()
+        // })
+        //get all fauna doc
+        client.query(q.Paginate(q.Match(q.Ref("indexes/all_hits"))))
         .then(res => {
-            this.usersAllData = res.data
-            // console.log("All Users Data Main ",this.usersAllData)
+            var x = res.data
+            const data = x.map(ref => {
+                return q.Get(ref)
+            })
+            client.query(data).then(res => {
+                this.usersAllData = res
+            })
         })
         .then(() => {
             this.getIp()
@@ -194,27 +213,16 @@ export default {
             .then(res => {
                 this.ip = JSON.stringify(res.data.ip, null,2)
                 const ip2  = this.ip.substring(1, this.ip.length-1)
-                // console.log("Got IP ", ip2)
-                // console.log("Getting IP Info...")
                 this.getIpInfo(ip2)
             })
         },
         getIpInfo(uip){
-            // console.log("Inside Getting Info")
             axios.get(`https://ipinfo.io/${uip}/json?token=36e70d700814d8`)
             .then(res => {
                 this.userInfo = res.data
             })
             .then(() => {
-                // console.log("Checking entry...")
-                this.checkEntry(uip, this.userInfo)
-                if(this.ipExists){
-                    // console.log("Trigger Increment")
-                    this.increaseCounter(uip, this.userInfo)
-                } else {
-                    // console.log("Trigger Add Method")
-                    this.addData(this.userInfo)
-                }
+                this.faunaGetByIp(uip)
             })
         },
         checkEntry(uip){ 
@@ -231,7 +239,6 @@ export default {
             console.log(this.ipExists)
         },
         addData(data){
-            // console.log("Inside Add Method")
             axios.post('https://json-server-rest.herokuapp.com/hits', {
                 ip: data.ip,
                 city: data.city,
@@ -255,14 +262,7 @@ export default {
             var count = this.getCountByIp(uip)
             count += 1
             axios.patch(`https://json-server-rest.herokuapp.com/hits/${id}`, {
-                // ip: data.ip,
-                // city: data.city,
-                // region: data.region,
-                // country: data.country,
-                // latLng: data.loc,
-                // org: data.org,
                 count: count,
-                // first_visited: data.first_visited,
                 last_visited: moment().format('MMMM Do YYYY, h:mm:ss a')
             }).then(() => {
                 // console.log('ok Done! Counter++')
@@ -277,12 +277,80 @@ export default {
             }
         },
         getCountByIp(uip){
+            // for(var i=0;i<this.usersAllData.length;i++){
+            //     if(this.usersAllData[i]["ip"] == uip){
+            //         console.log("Found!", uip, this.usersAllData[i]["id"])
+            //         return this.usersAllData[i]["count"]
+            //     }
+            // }
             for(var i=0;i<this.usersAllData.length;i++){
-                if(this.usersAllData[i]["ip"] == uip){
+                if(this.usersAllData[i].data.ip == uip){
                     // console.log("Found!", uip, this.usersAllData[i]["id"])
-                    return this.usersAllData[i]["count"]
+                    return this.usersAllData[i].data.count
                 }
             }
+        },
+        //Fauna
+        faunaAdd(){
+            const data = this.userInfo
+                client.query(q.Create(q.Collection("hits"), {
+                    data: {
+                        "ip": data.ip,
+                        "city": data.city,
+                        "region": data.region,
+                        "country": data.country,
+                        "loc": data.loc,
+                        "org": data.org,
+                        "postal": data.postal,
+                        "timezone": data.timezone,
+                        "count": 0,
+                        "first_visited": moment().format('MMMM Do YYYY, h:mm:ss a'),
+                        "last_visited": moment().format('MMMM Do YYYY, h:mm:ss a')
+                    }
+                })).then(() => {
+                    console.log('ok')
+                })
+        },
+        faunaGetByIp(uip){
+                client.query(q.Get(q.Match(q.Index('user_by_ip'), uip)))
+                .then(res => {
+                    // console.log("Found: ", res)
+                    //Update the time & counter
+                    var id = res.ref.value.id
+                    this.faunaUpdateIp(id, uip)
+                    this.ipStatus = 'exists'
+                }). catch(err => {
+                    console.log(err.name)
+                    this.faunaAdd()
+                    this.ipStatus = 'not exists'
+                })
+        },
+        faunaUpdateIp(id, uip){
+            var count = this.getCountByIp(uip)
+            count += 1
+            client.query(
+                q.Update(
+                    q.Ref(q.Collection('hits'), id),
+                    {
+                        data: {
+                            count: count,
+                            last_visited: moment().format('MMMM Do YYYY, h:mm:ss a')
+                        }
+                    }
+                    )
+            ).then(() => {
+                console.log("Updated")
+            })
+        },
+        createFaunaIndex(){
+            client.query(
+            q.CreateIndex({
+                name: 'user_by_ip',
+                source: q.Collection('hits'),
+                terms: [{ field: ['data', 'ip'] }],
+            })
+            )
+            .then((res) => console.log(res))
         }
     }
 }
