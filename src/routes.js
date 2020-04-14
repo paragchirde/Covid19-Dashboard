@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 import Dashboard from './components/Dashboard.vue'
 import UserHits from './components/UserHits.vue'
+import Services from './components/Services.vue'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -12,6 +14,12 @@ const routes = [{
     {
         path: '/hits',
         component: UserHits
+    },
+    {
+        path: '/services',
+        component: Services,
+        name: Services,
+        props: true
     }
 ]
 
