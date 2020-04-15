@@ -5,7 +5,20 @@
        </div>
         <div class="flex flex-wrap h-screen mb-4">
             <!--  -->
-                <div class="w-full md:w-3/4 bg-light p-6"> 
+                <!-- Logo  -->
+                <div class="w-full md:w-1/4 bg-light p-6"> 
+                    <HeaderLogo/>
+                    <div class="flex justify-center mt-2">
+                        <router-link to="/">
+                            <div class="p-2 bg-blue-100 items-center text-gray-800 leading-none rounded-sm flex lg:inline-flex mb-4 mt-2 text-sm" role="alert">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#5a67d8" d="M12 6.453l9 8.375v9.172h-6v-6h-6v6h-6v-9.172l9-8.375zm12 5.695l-12-11.148-12 11.133 1.361 1.465 10.639-9.868 10.639 9.883 1.361-1.465z"/></svg>
+                                <span class="font-base mr-2 text-left flex-auto mt-1 ml-2">Dashboard</span>
+                            </div>
+                        </router-link>  
+                    </div>
+                </div>
+                <!-- Mid -->
+                <div class="hidden md:block w-full md:w-2/4 bg-light p-6"> 
                 <p class="text-2xl text-gray-700 font-semibold font-light mx-2">Maharashtra State COVID-19 Tracker</p>
                 <div class="flex items-center bg-blue-100 text-blue-900 text-xs font-light px-4 py-3 mx-2" role="alert">
                 <p>Last Updated: {{ stateData.lastupdatedtime }}</p>
@@ -20,7 +33,7 @@
                     <div class="sm:w-1/6 md:w-1/4 p-2">
                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                         <p class="font-bold text-xl bg-orange-400 inline-block px-2 text-white rounded">{{stateData.active}}</p>
-                        <p>Active cases</p>
+                        <p>Active<br> cases</p>
                         </div>
                     </div>
                     <div class="sm:w-1/6 md:w-1/4 p-2">
@@ -38,7 +51,7 @@
                 </div>
             </div>
             <div class="w-full md:w-1/4 bg-light p-6">
-                <div class="form flex flex-col bg-gray-100 p-6 shadow">
+                <div class="form flex flex-col bg-gray-100 p-6 shadow -mt-8 md:mt-8">
                     <p class="text-gray-700 font-light mb-2">Select your city</p>
                         <div class="relative w-full ">
                             <select v-model="currentCity" class="block appearance-none   w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
@@ -74,7 +87,7 @@
                         <tr v-for="(data, index) in Edata2" :key="index" class="">
                         <td class="border px-4 py-2">{{ index+1 }}</td>
                         <td class="border px-4 py-2">{{ data.nameoftheorganisation}} <br><span class="text-xs text-gray-700">{{ data.descriptionandorserviceprovided }}</span></td>
-                        <td class="border px-4 py-2">{{ data.contact }}</td>
+                        <td class="border px-4 py-2"><a :href="data.contact"> {{  data.contact   }}</a></td>
                         <td class="border px-4 py-2">{{ data.phonenumber }}</td>
                         <td class="border px-4 py-2">{{ data.category }}</td>
                         </tr>

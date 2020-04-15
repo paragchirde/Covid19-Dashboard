@@ -3,11 +3,16 @@
         <div class="flex flex-wrap h-screen mb-6">
             <!--  -->
             <div class="w-full md:w-1/3 bg-light p-6">
+                <HeaderLogo/>
+                <div class="w-full bg-gray-200 h-1 mt-4 mb-4 mx-2"></div>
                 <div class="mx-4">
-                    <p class="text-xl text-blue-900 font-light">India COVID-19 Tracker</p>
+                    <!-- <p class="text-xl text-blue-900 font-light">India COVID-19 Tracker</p> -->
                     <div class="mt-2 bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-2" role="alert">
-                        <p class="font-light text-sm text-left">Real time COVID-19 Stats for India</p>
-                        <p class="font-light text-xs mt-3 text-left text-gray-600">Last Updated: {{ indiaData.lastupdatedtime }} </p>
+                        <!-- <p class="font-light text-sm text-left">Real time COVID-19 Stats for India</p> -->
+                        <div class="flex justify-center">
+                            <img src="../assets/line_india_covid_tracker_text.png" class="h-6">
+                        </div>
+                        <p class="font-light text-xs mt-3 text-left text-gray-600 text-center">Last Updated: {{ indiaData.lastupdatedtime }} </p>
                     </div>
                 </div>
                 <!--  -->
@@ -126,7 +131,8 @@
                     </div>
                 </div>
                 <div class="w-full bg-gray-200 h-1 mt-4 mb-4"></div>
-                <p class=" bg-gray-300 text-xs p-2 text-gray-600">THIS IS A COMMUNITY SOURCED LISTING PLATFORM AND ARE NOT ASSOCIATED WITH ANY OF THE ORGANISATIONS.
+                <p class=" bg-gray-300 text-xs p-2 text-gray-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#2d3748" d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg>
+                THIS IS A COMMUNITY SOURCED LISTING PLATFORM AND ARE NOT ASSOCIATED WITH ANY OF THE ORGANISATIONS.
 ALTHOUGH WE VERIFY ALL OUR LISTINGS, WE REQUEST YOU TO FOLLOW ALL THE GUIDELINES AND TAKE NECESSARY PRECAUTIONS.
 WE ENCOURAGE YOU TO REPORT ANY ERROR OR SUSPICIOUS ACTIVITY SO WE CAN TAKE IMMEDIATE ACTION.</p>
                 <div class="flost-right bg-indigo-100 mt-8 mb-8 inline-block">

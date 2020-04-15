@@ -4,6 +4,9 @@ import router from './routes.js'
 
 import './assets/css/tailwind.css'
 
+import Headerlogo from './components/HeaderLogo.vue'
+Vue.component('HeaderLogo', Headerlogo)
+
 Vue.config.productionTip = false
 
 new Vue({
