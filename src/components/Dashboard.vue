@@ -208,7 +208,7 @@ export default {
             })
         })
         .then(() => {
-            // this.getIp()
+            this.getIp()
         })
 
         instance.get('https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=India')
