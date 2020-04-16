@@ -153,14 +153,11 @@ const instance = axios.create({
     headers: {'x-rapidapi-host': 'covid-19-coronavirus-statistics.p.rapidapi.com', 'x-rapidapi-key' : 'd4632f0efdmshb9e1d1fe4621607p14324djsn1514c88ee0ad'} //don't forget to change API key to your exact key
 })
 var moment = require('moment');
-<<<<<<< HEAD
 import district  from '../assets/districtdata.json';
-=======
 
 const faunadb = require('faunadb')
 const client = new faunadb.Client({secret: process.env.VUE_APP_FAUNA_DB_SECRET})
 const q = faunadb.query
->>>>>>> 9a53bc4c404201751de885fcbb012a25d6204f8f
 export default {
     // components: {ChloroplethMap},
     data(){
@@ -176,14 +173,11 @@ export default {
             userInfo: [],
             usersAllData: [],
             ipExists: false,
-<<<<<<< HEAD
             districtWiseData: {},
             districtData: [],
             district,
-=======
             ipStatus: '',
             fHits: []
->>>>>>> 9a53bc4c404201751de885fcbb012a25d6204f8f
         }
     },
     created(){

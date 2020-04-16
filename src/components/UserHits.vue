@@ -33,7 +33,7 @@
             </thead>
             <tbody class="text-gray-700">
                 <tr v-for="(hit, index) in fHits" :key="index">
-                <td class="border px-4 py-2">{{index}}</td>
+                <td class="border px-4 py-2">{{fHits.length-(index+1)}}</td>
                 <td class="border px-4 py-2">{{hit.data.ip}}</td>
                 <td class="border px-4 py-2">{{hit.data.city}} | {{hit.data.region}} |
                 {{hit.data.country}}
@@ -73,7 +73,8 @@ export default {
             })
             client.query(data).then(res => {
                 this.fHits = res
-                console.log(this.fHits)
+                this.fHits.reverse()
+                // console.log(this.fHits)
             })
         })
     }
