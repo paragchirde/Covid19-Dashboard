@@ -16,7 +16,11 @@
         "core-js": "^3.6.4",
         "express": "^4.17.1",
         "express-ip": "^1.0.4",
+<<<<<<< HEAD
         "leaflet": "^1.6.0",
+=======
+        "faunadb": "^2.13.1",
+>>>>>>> 9a53bc4c404201751de885fcbb012a25d6204f8f
         "moment": "^2.24.0",
         "postcss-cli": "^7.1.0",
         "serve-static": "^1.14.1",

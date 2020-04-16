@@ -32,34 +32,49 @@
                 </tr>
             </thead>
             <tbody class="text-gray-700">
-                <tr v-for="(hit, index) in hits" :key="index">
-                <td class="border px-4 py-2">{{hit.id}}</td>
-                <td class="border px-4 py-2">{{hit.ip}}</td>
-                <td class="border px-4 py-2">{{hit.city}} | {{hit.region}} |
-                {{hit.country}}
+                <tr v-for="(hit, index) in fHits" :key="index">
+                <td class="border px-4 py-2">{{index}}</td>
+                <td class="border px-4 py-2">{{hit.data.ip}}</td>
+                <td class="border px-4 py-2">{{hit.data.city}} | {{hit.data.region}} |
+                {{hit.data.country}}
                 </td>
-                <td class="border px-4 py-2">{{hit.org}}</td>
-                <td class="border px-4 py-2">{{hit.first_visited}}</td>
-                <td class="border px-4 py-2">{{hit.last_visited}}</td>
-                <td class="border px-4 py-2 bg-indigo-600 text-white">{{hit.count}}</td>
+                <td class="border px-4 py-2">{{hit.data.org}}</td>
+                <td class="border px-4 py-2">{{hit.data.first_visited}}</td>
+                <td class="border px-4 py-2">{{hit.data.last_visited}}</td>
+                <td class="border px-4 py-2 bg-indigo-600 text-white">{{hit.data.count}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </template>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+const faunadb = require('faunadb')
+const client = new faunadb.Client({secret: process.env.VUE_APP_FAUNA_DB_SECRET})
+const q = faunadb.query
 export default {
     data(){
         return {
-            hits: []
+            hits: [],
+            fHits:[]
         }
     },
     created(){
-        axios.get('https://json-server-rest.herokuapp.com/hits')
+        // axios.get('https://json-server-rest.herokuapp.com/hits')
+        // .then(res => {
+        //     this.hits = res.data
+        // })
+        //fauna
+        client.query(q.Paginate(q.Match(q.Ref("indexes/all_hits"))))
         .then(res => {
-            console.log(res.data)
-            this.hits = res.data
+            var x = res.data
+            const data = x.map(ref => {
+                return q.Get(ref)
+            })
+            client.query(data).then(res => {
+                this.fHits = res
+                console.log(this.fHits)
+            })
         })
     }
 }
