@@ -135,7 +135,7 @@ export default {
             })
         })
         .then(() => {
-            this.getIp()
+            this.getI()
         })
 
         instance.get('https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=India')
@@ -184,65 +184,22 @@ export default {
         
     },
     methods:{
-        getIp(){
+        getI(){
             // console.log("Inside GetIP")
             axios.get("https://api.ipify.org?format=json")
             .then(res => {
                 this.ip = JSON.stringify(res.data.ip, null,2)
                 const ip2  = this.ip.substring(1, this.ip.length-1)
-                this.getIpInfo(ip2)
+                this.getIInfo(ip2)
             })
         },
-        getIpInfo(uip){
+        getIInfo(uip){
             axios.get(`https://ipinfo.io/${uip}/json?token=36e70d700814d8`)
             .then(res => {
                 this.userInfo = res.data
             })
             .then(() => {
                 this.faunaGetByIp(uip)
-            })
-        },
-        checkEntry(uip){ 
-            // console.log("Inside Checking Entey")
-            // console.log("Whats the All User data now?",this.usersAllData)  
-            for(var i=0;i<this.usersAllData.length;i++){
-                if(this.usersAllData[i]["ip"] == uip){
-                    // console.log("Found ID", this.usersAllData[i]["ip"] )
-                    this.ipExists = true
-                } else {
-                    this.ipExists = false
-                }
-            }
-            console.log(this.ipExists)
-        },
-        addData(data){
-            axios.post('https://json-server-rest.herokuapp.com/hits', {
-                ip: data.ip,
-                city: data.city,
-                region: data.region,
-                country: data.country,
-                latLng: data.loc,
-                org: data.org,
-                count: 0,
-                first_visited: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                last_visited: moment().format('MMMM Do YYYY, h:mm:ss a')
-            })
-            .then(() => {
-                console.log('ok')
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        },
-        increaseCounter(uip){
-            var id = this.getIdByIp(uip)
-            var count = this.getCountByIp(uip)
-            count += 1
-            axios.patch(`https://json-server-rest.herokuapp.com/hits/${id}`, {
-                count: count,
-                last_visited: moment().format('MMMM Do YYYY, h:mm:ss a')
-            }).then(() => {
-                // console.log('ok Done! Counter++')
             })
         },
         getIdByIp(uip){
