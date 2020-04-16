@@ -92,7 +92,10 @@
                 <div class="flex content-start flex-wrap">
                     <div class="sm:w-1/6 md:w-1/4  p-2">
                         <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
-                        <p class="font-bold text-xl bg-blue-400 inline-block px-2 text-white rounded">{{stateData.confirmed}}</p>
+                        <div class="flex justify-between">
+                            <p class="font-bold text-xl bg-blue-400 inline-block px-2 text-white rounded">{{stateData.confirmed}}</p>
+                            <p class="font-bold text-sm text-red-500">+ {{stateData.deltaconfirmed}}</p>
+                        </div>
                         <p>Confirmed cases</p>
                         </div>
                     </div>
@@ -125,11 +128,17 @@
                 </div>
                 <div class="flex content-start flex-wrap">
                     <div class="sm:w-1/3 md:w-1/5 w-1/3 p-2" v-for="(city, index) in stateDistrictData" :key="index">
-                        <div class="bg-gray-100 border-t-4 border-gray-500 text-gray-700 p-2 shadow rounded" role="alert">
-                        <p class="font-bold text-base text-base bg-gray-800 inline-block px-2 text-white rounded">{{city.confirmed}}</p>
-                        <p class="font-light text-sm mt-1">{{city.city}}</p>
+                        <div class="flex-initial bg-gray-100 border-t-4 border-gray-500 text-gray-700 p-2 shadow rounded" role="alert">
+                            <div class="flex justify-between">
+                                    <p class="font-bold text-base text-base bg-gray-800 inline-block px-2 text-white rounded">{{city.confirmed}}</p> 
+                                    <p class="font-bold text-sm text-red-500" v-if="city.delta.confirmed > 0">+{{ city.delta.confirmed }}</p>    
+                            </div>
+                            <p class="font-light text-sm mt-1">{{city.city}}</p>
                         </div>
                     </div>
+                </div>
+                <div class="mt-2 mb-4 bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-2" role="alert">
+                    <p class="font-light text-sm text-left">Map Data - District wise data</p>
                 </div>
                 <ChloroplethMap :district="districtData"></ChloroplethMap>
                 <div class="w-full bg-gray-200 h-1 mt-4 mb-4"></div>
@@ -184,7 +193,7 @@ export default {
         //get all fauna doc
         client.query(q.Paginate(q.Match(q.Ref("indexes/all_hits"))))
         .then(res => {
-            var x = res.data
+            var x = res.data    
             const data = x.map(ref => {
                 return q.Get(ref)
             })
@@ -193,7 +202,7 @@ export default {
             })
         })
         .then(() => {
-            this.getIp()
+            // this.getIp()
         })
 
         instance.get('https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=India')
@@ -230,7 +239,6 @@ export default {
                  this.district[i]['cases'] = 0
               }
             })
-
             this.districtData = this.district
             // console.log(this.districtData)
             console.log(this.district)
