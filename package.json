@@ -16,8 +16,8 @@
         "core-js": "^3.6.4",
         "express": "^4.17.1",
         "express-ip": "^1.0.4",
-        "leaflet": "^1.6.0",
         "faunadb": "^2.13.1",
+        "leaflet": "^1.6.0",
         "moment": "^2.24.0",
         "postcss-cli": "^7.1.0",
         "serve-static": "^1.14.1",
@@ -25,6 +25,7 @@
         "tailwindcss": "^1.2.0",
         "vue": "^2.6.11",
         "vue-choropleth": "^0.3.1",
+        "vue-number-animation": "^1.0.5",
         "vue-router": "^3.1.6",
         "vue2-leaflet": "^2.5.2"
     },
