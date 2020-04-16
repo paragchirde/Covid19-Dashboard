@@ -78,7 +78,10 @@
             </div>
             <!-- State -->
             <div class="w-full md:w-2/3 bg-light h-12 h-screen p-6">
-                <p class="text-2xl text-gray-700 font-semibold font-light mx-2">Maharashtra State COVID-19 Tracker</p>
+                <div class="flex justify-between">
+                    <p class="text-2xl text-gray-700 font-semibold font-light mx-2">Maharashtra State COVID-19 Tracker</p>
+                    <p class="text-sm text-white bg-red-400 p-1 rounded-lg font-semibold font-light mx-2">Helpline Number <a href="tel:020-26127394">020-26127394</a></p>
+                </div>
                 <router-link to="/services">
                     <div class="p-2 bg-green-500 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex mb-4 mt-2 text-sm" role="alert">
                         <span class="flex rounded-full bg-green-400 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
