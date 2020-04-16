@@ -23,29 +23,29 @@
                 <div class="flex items-center bg-blue-100 text-blue-900 text-xs font-light px-4 py-3 mx-2" role="alert">
                 <p>Last Updated: {{ stateData.lastupdatedtime }}</p>
                 </div>
-                <div class="flex content-start flex-wrap">
-                    <div class="sm:w-1/6 md:w-1/4  p-2">
-                        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
+                <div class="flex">
+                    <div class="sm:w-1/6 md:w-1/4 p-2">
+                        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 flex-initial" role="alert">
                         <p class="font-bold text-xl bg-blue-400 inline-block px-2 text-white rounded">{{stateData.confirmed}}</p>
-                        <p>Confirmed cases</p>
+                        <p>Confirmed <br> cases</p>
                         </div>
                     </div>
                     <div class="sm:w-1/6 md:w-1/4 p-2">
-                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 flex-initial" role="alert">
                         <p class="font-bold text-xl bg-orange-400 inline-block px-2 text-white rounded">{{stateData.active}}</p>
-                        <p>Active cases</p>
+                        <p>Active <br> cases</p>
                         </div>
                     </div>
                     <div class="sm:w-1/6 md:w-1/4 p-2">
-                        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+                        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 flex-initial" role="alert">
                         <p class="font-bold text-xl bg-green-400 inline-block px-2 text-white rounded">{{stateData.recovered}}</p>
-                        <p>Recovered cases</p>
+                        <p>Recovered <br> cases</p>
                         </div>
                     </div>
                     <div class="sm:w-1/6 md:w-1/4 p-2">
-                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 flex-initial" role="alert">
                         <p class="font-bold text-xl bg-red-400 inline-block px-2 text-white rounded">{{stateData.deaths}}</p>
-                        <p >Deceased cases</p>
+                        <p >Deceased <br> cases</p>
                         </div>
                     </div>
                 </div>

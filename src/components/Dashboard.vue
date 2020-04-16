@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="bg-indigo-500 py-4 lg:px-4 border-l-8 border-indigo-700 mx-4 mt-6">
-                  <div class="text-indigo-100 leading-none" role="alert">
+                  <div class="text-indigo-100 leading-none ml-2" role="alert">
                     <p class="font-semibold mr-2 text-left flex-auto">#Stay Home, Stay Safe</p>
                     <p class="mt-2 text-white text-xs">
                             Cooperate with the Doctors, Policemen & Government
@@ -68,7 +68,7 @@
                   </div>
                 </div>
                 <div class="bg-green-500 py-4 lg:px-4 border-l-8 border-green-700 mx-4 mt-6">
-                  <div class="text-green-100 leading-none" role="alert">
+                  <div class="text-green-100 leading-none ml-2" role="alert">
                     <p class="mt-2 text-white text-xs">
                         For More guidelines visit
                     </p>
@@ -80,10 +80,13 @@
             <div class="w-full md:w-2/3 bg-light h-12 h-screen p-6">
                 <div class="flex justify-between">
                     <p class="text-2xl text-gray-700 font-semibold font-light mx-2">Maharashtra State COVID-19 Tracker</p>
-                    <p class="text-sm text-white bg-red-400 p-1 rounded-lg font-semibold font-light mx-2">Helpline Number <a href="tel:020-26127394">020-26127394</a></p>
+                    <!-- <p class="text-sm text-white bg-red-400 p-1 rounded-lg font-semibold font-light mx-2 align-middle">Helpline Number <a href="tel:020-26127394">020-26127394</a></p> -->
+                    <div class="p-2 bg-red-500 items-center text-indigo-100 leading-none rounded flex lg:inline-flex mb-4 mt-2 text-sm" role="alert">
+                        <span class="font-base mr-2 text-left flex-auto">Helpline Number <a href="tel:020-26127394">020-26127394</a></span>
+                    </div>
                 </div>
                 <router-link to="/services">
-                    <div class="p-2 bg-green-500 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex mb-4 mt-2 text-sm" role="alert">
+                    <div class="p-2 bg-green-500 items-center text-indigo-100 leading-none rounded-full flex lg:inline-flex mb-4 mt-2 text-sm" role="alert">
                         <span class="flex rounded-full bg-green-400 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
                         <span class="font-base mr-2 text-left flex-auto">Essential Services</span>
                         <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
@@ -93,28 +96,28 @@
                 <p>Last Updated: {{ stateData.lastupdatedtime }}</p>
                 </div>
                 <div class="flex content-start flex-wrap">
-                    <div class="sm:w-1/6 md:w-1/4  p-2">
+                    <div class="w-1/2 md:w-1/4 p-2">
                         <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
-                        <div class="flex justify-between">
-                            <p class="font-bold text-xl bg-blue-400 inline-block px-2 text-white rounded">{{stateData.confirmed}}</p>
-                            <p class="font-bold text-sm text-red-500">+ {{stateData.deltaconfirmed}}</p>
-                        </div>
-                        <p>Confirmed cases</p>
+                            <div class="flex justify-between">
+                                <p class="font-bold text-xl bg-blue-400 inline-block px-2 text-white rounded">{{stateData.confirmed}}</p>
+                                <p class="font-bold text-sm text-red-500">&#8593; {{stateData.deltaconfirmed}}</p>
+                            </div>
+                            <p>Confirmed cases</p>
                         </div>
                     </div>
-                    <div class="sm:w-1/6 md:w-1/4 p-2">
+                    <div class="w-1/2 md:w-1/4 p-2">
                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                         <p class="font-bold text-xl bg-orange-400 inline-block px-2 text-white rounded">{{stateData.active}}</p>
                         <p>Active cases</p>
                         </div>
                     </div>
-                    <div class="sm:w-1/6 md:w-1/4 p-2">
+                    <div class="w-1/2 md:w-1/4 p-2">
                         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
                         <p class="font-bold text-xl bg-green-400 inline-block px-2 text-white rounded">{{stateData.recovered}}</p>
                         <p>Recovered cases</p>
                         </div>
                     </div>
-                    <div class="sm:w-1/6 md:w-1/4 p-2">
+                    <div class="w-1/2 md:w-1/4 p-2">
                         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
                         <p class="font-bold text-xl bg-red-400 inline-block px-2 text-white rounded">{{stateData.deaths}}</p>
                         <p >Deceased cases</p>
@@ -125,25 +128,25 @@
                 <!-- Cities -->
                 <div class="w-full bg-gray-200 h-1 mt-4 mb-4 mx-2"></div>
                 
-                <p class="text-base text-gray-700 font-light font-light mx-2">Maharashtra State City wise COVID-19 Tracker</p>
-                <div class="flex items-center bg-blue-100 text-blue-900 text-xs font-light px-4 py-3 mx-2 mt-3 mb-3" role="alert">
+                <p class="text-base text-gray-700 font-light font-light mx-2">Maharashtra State City/District wise COVID-19 Tracker</p>
+                <div class="flex items-center bg-gray-200 text-blue-900 text-xs font-light px-4 py-3 mx-2 mt-3 mb-3" role="alert">
                     <p>Data from few cities is unclear</p>
                 </div>
                 <div class="flex content-start flex-wrap">
                     <div class="sm:w-1/3 md:w-1/5 w-1/3 p-2" v-for="(city, index) in stateDistrictData" :key="index">
-                        <div class="flex-initial bg-gray-100 border-t-4 border-gray-500 text-gray-700 p-2 shadow rounded" role="alert">
+                        <div class="flex-initial bg-blue-100 border-t-0 border-gray-500 text-gray-700 p-2 shadow rounded" role="alert">
                             <div class="flex justify-between">
-                                    <p class="font-bold text-base text-base bg-gray-800 inline-block px-2 text-white rounded">{{city.confirmed}}</p> 
-                                    <p class="font-bold text-sm text-red-500" v-if="city.delta.confirmed > 0">+{{ city.delta.confirmed }}</p>    
+                                    <p class="font-bold text-base text-base bg-blue-500 inline-block px-2 text-white rounded">{{city.confirmed}}</p> 
+                                    <p class="font-bold text-sm text-red-500" v-if="city.delta.confirmed > 0">&#8593;  {{ city.delta.confirmed }}</p>    
                             </div>
                             <p class="font-light text-sm mt-1">{{city.city}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="mt-2 mb-4 bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-2" role="alert">
+                <div class="hidden md:block mt-2 mb-4 bg-gray-200 border-l-4 border-gray-500 text-gray-700 p-2" role="alert">
                     <p class="font-light text-sm text-left">Map Data - District wise data</p>
                 </div>
-                <ChloroplethMap :district="districtData"></ChloroplethMap>
+                <ChloroplethMap :district="districtData" class="hidden md:block"></ChloroplethMap>
                 <div class="w-full bg-gray-200 h-1 mt-4 mb-4"></div>
                 <p class=" bg-gray-300 text-xs p-2 text-gray-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#2d3748" d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg>
                 THIS IS A COMMUNITY SOURCED LISTING PLATFORM AND ARE NOT ASSOCIATED WITH ANY OF THE ORGANISATIONS.
