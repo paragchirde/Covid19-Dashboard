@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 import Dashboard from './components/Dashboard.vue'
 import UserHits from './components/UserHits.vue'
+
+
 Vue.use(VueRouter)
 
 const routes = [{

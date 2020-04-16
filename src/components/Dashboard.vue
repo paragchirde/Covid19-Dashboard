@@ -1,5 +1,6 @@
 <template>
     <div>
+       
         <div class="flex flex-wrap h-screen mb-6">
             <!--  -->
             <div class="w-full md:w-1/3 bg-light p-6">
@@ -117,6 +118,7 @@
                         </div>
                     </div>
                 </div>
+                <ChloroplethMap :district="districtData"></ChloroplethMap>
                 <div class="w-full bg-gray-200 h-1 mt-4 mb-4"></div>
                 <div class="flost-right bg-indigo-100 mt-8 mb-8 inline-block">
                     <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSc_2y5N0I67wDU38DjDh35IZSIS30rQf7_NYZhtYYGU1jJYT6_kDx4YpF-qw0LSlGsBYP8pqM_a1Pd/pubhtml#" target="blank"><div class="flex items-center bg-green-100 text-gray-600 text-sm font-light  px-4 py-3" role="alert">
@@ -134,7 +136,9 @@ const instance = axios.create({
     headers: {'x-rapidapi-host': 'covid-19-coronavirus-statistics.p.rapidapi.com', 'x-rapidapi-key' : 'd4632f0efdmshb9e1d1fe4621607p14324djsn1514c88ee0ad'} //don't forget to change API key to your exact key
 })
 var moment = require('moment');
+import district  from '../assets/districtdata.json';
 export default {
+    // components: {ChloroplethMap},
     data(){
         return {
             moment: moment,
@@ -147,7 +151,10 @@ export default {
             ip: '',
             userInfo: [],
             usersAllData: [],
-            ipExists: false
+            ipExists: false,
+            districtWiseData: {},
+            districtData: [],
+            district,
         }
     },
     created(){
@@ -174,18 +181,41 @@ export default {
             // console.log(res)
         })
 
+
         axios.get('https://api.covid19india.org/state_district_wise.json')
         .then(res => {
             // console.log(res)
             this.stateDistrictData = res.data.Maharashtra.districtData
             // console.log(this.stateDistrictData)
             // console.log(Object.keys(this.stateDistrictData))
+            let data = {}
             Object.keys(this.stateDistrictData).forEach((key) => {
                 this.stateDistrictData[key].city = key
+                data[key] =  this.stateDistrictData[key].confirmed
                 // this.stateDistrictData2.push(this.stateDistrictData)
             })
-            // console.log(this.stateDistrictData)
-        })
+            
+            this.district.forEach((d, i) => {
+              if(this.stateDistrictData[d['district']] !== undefined){
+                this.district[i]['cases'] = this.stateDistrictData[d['district']].confirmed
+              }
+              else{
+                 this.district[i]['cases'] = 0
+              }
+            })
+
+            this.districtData = this.district
+            // console.log(this.districtData)
+            console.log(this.district)
+            console.log(this.stateDistrictData)
+        })  
+        
+    },
+    mounted(){
+            
+    },
+    computed:{
+        
     },
     methods:{
         getIp(){

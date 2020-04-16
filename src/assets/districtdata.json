@@ -1,0 +1,235 @@
+ [
+    {
+      "dt_code": "521",
+      "district": "Pune",
+      "cases": "266",
+      "death": "89.5"
+    },
+    {
+        "dt_code": "519",
+      "district": "Mumbai",
+      "cases": "1000",
+      "death": "89.5"
+    },
+    {
+        "dt_code": "505",
+        "district": "Nagpur",
+         "cases": "28",
+         "death": "89.5"
+    },
+
+    {
+        "dt_code": "506",
+        "district": "Bhandara",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "504",
+        "district": "Wardha",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "500",
+        "district": "Buldana",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "501",
+        "district": "Akola",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "516",
+        "district": "Nashik",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "508",
+        "district": "Gadchiroli",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "502",
+        "district": "Washim",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "509",
+        "district": "Chandrapur",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "510",
+        "district": "Yavatmal",
+         "cases": "4",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "514",
+        "district": "Jalna",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "522",
+        "district": "Ahmadnagar",
+         "cases": "26",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "512",
+        "district": "Hingoli",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "511",
+        "district": "Nanded",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "513",
+        "district": "Parbhani",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "523",
+        "district": "Bid",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "524",
+        "district": "Latur",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "525",
+        "district": "Osmanabad",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "526",
+        "district": "Solapur",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "527",
+        "district": "Satara",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "528",
+        "district": "Ratnagiri",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "531",
+        "district": "Sangli",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "530",
+        "district": "Kolhapur",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "529",
+        "district": "Sindhudurg",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "517",
+        "district": "Thane",
+         "cases": "190",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "732",
+        "district": "Palghar",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "497",
+        "district": "Nandurbar",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "503",
+        "district": "Amravati",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "498",
+        "district": "Dhule",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "526",
+        "district": "Solapur",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "515",
+        "district": "Aurangabad",
+         "cases": "20",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "520",
+        "district": "Raigarh",
+         "cases": "12",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "518",
+        "district": "Mumbai Suburban",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "526",
+        "district": "Solapur",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "507",
+        "district": "Gondiya",
+         "cases": "1357",
+         "death": "89.5"
+    },
+    {
+        "dt_code": "499",
+        "district": "Jalgaon",
+         "cases": "1357",
+         "death": "89.5"
+    }
+
+    
+    
+    
+]
