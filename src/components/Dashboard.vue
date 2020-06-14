@@ -124,7 +124,7 @@ export default {
     },
     created(){
         //get all fauna doc
-        client.query(q.Paginate(q.Match(q.Ref("indexes/all_hits"))))
+        client.query(q.Paginate(q.Match(q.Ref("indexes/all_hits")), {size:100000}))
         .then(res => {
             var x = res.data    
             const data = x.map(ref => {
@@ -136,6 +136,7 @@ export default {
         })
         .then(() => {
             this.getI()
+            this.getTotalCount()
         })
 
         instance.get('https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=India')
@@ -185,7 +186,6 @@ export default {
     },
     methods:{
         getI(){
-            // console.log("Inside GetIP")
             axios.get("https://api.ipify.org?format=json")
             .then(res => {
                 this.ip = JSON.stringify(res.data.ip, null,2)
@@ -199,6 +199,7 @@ export default {
                 this.userInfo = res.data
             })
             .then(() => {
+                // console.log("Gettin IP")
                 this.faunaGetByIp(uip)
             })
         },
@@ -213,10 +214,21 @@ export default {
         getCountByIp(uip){
             for(var i=0;i<this.usersAllData.length;i++){
                 if(this.usersAllData[i].data.ip == uip){
-                    // console.log("Found!", uip, this.usersAllData[i]["id"])
+                    // console.log("Found!", uip)
+                    console.log(this.usersAllData[i].data.count)
                     return this.usersAllData[i].data.count
                 }
             }
+        },
+        getTotalCount(){
+            var count = 0
+            for(var i=0;i<this.usersAllData.length;i++){
+                if(this.usersAllData[i].data.count != null){
+                    count += this.usersAllData[i].data.count
+                }   
+            }
+            console.log(count)
+            return count
         },
         //Fauna
         faunaAdd(){
@@ -240,14 +252,19 @@ export default {
                 })
         },
         faunaGetByIp(uip){
+            var id = ''
                 client.query(q.Get(q.Match(q.Index('user_by_ip'), uip)))
                 .then(res => {
                     // console.log("Found: ", res)
                     //Update the time & counter
-                    var id = res.ref.value.id
-                    this.faunaUpdateIp(id, uip)
+                     id = res.ref.value.id
                     this.ipStatus = 'exists'
-                }). catch(err => {
+                })
+                .then(() => {
+                    // console.log('Updating count for ',uip)
+                    this.faunaUpdateIp(id, uip)
+                })
+                . catch(err => {
                     console.log(err.name)
                     this.faunaAdd()
                     this.ipStatus = 'not exists'
@@ -256,6 +273,7 @@ export default {
         faunaUpdateIp(id, uip){
             var count = this.getCountByIp(uip)
             count += 1
+            console.log(count)
             client.query(
                 q.Update(
                     q.Ref(q.Collection('hits'), id),

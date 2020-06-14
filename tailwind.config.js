@@ -1,7 +1,13 @@
 module.exports = {
-  theme: {
-    extend: {},
-  },
-  variants: {},
-  plugins: [],
+    purge: {
+        content: [
+            './src/**/*.vue',
+            './src/**/*.js',
+        ]
+    },
+    theme: {
+        extend: {},
+    },
+    variants: {},
+    plugins: [],
 }

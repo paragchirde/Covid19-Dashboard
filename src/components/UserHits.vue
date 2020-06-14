@@ -19,6 +19,7 @@
                 </div>
             </div>
         </div> -->
+        <p class="">Total Hits {{ totalHits }} </p>
         <table class="table-auto w-full text-sm">
             <thead class="bg-gray-100">
                 <tr>
@@ -56,7 +57,8 @@ export default {
     data(){
         return {
             hits: [],
-            fHits:[]
+            fHits:[],
+            totalHits: 0
         }
     },
     created(){
@@ -65,7 +67,7 @@ export default {
         //     this.hits = res.data
         // })
         //fauna
-        client.query(q.Paginate(q.Match(q.Ref("indexes/all_hits"))))
+        client.query(q.Paginate(q.Match(q.Ref("indexes/all_hits")),{size:100000}))
         .then(res => {
             var x = res.data
             const data = x.map(ref => {
